@@ -282,41 +282,6 @@
             }
         }
 
-        /* Custom Cursor */
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #EF6113;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 10001;
-            transition: transform 0.2s ease, opacity 0.2s ease;
-            opacity: 0;
-        }
-
-        .custom-cursor-follower {
-            width: 8px;
-            height: 8px;
-            background: #EF6113;
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 10001;
-            transition: transform 0.15s ease;
-            opacity: 0;
-        }
-
-        body:hover .custom-cursor,
-        body:hover .custom-cursor-follower {
-            opacity: 1;
-        }
-
-        .custom-cursor.hover {
-            transform: scale(1.5);
-            background: rgba(239, 97, 19, 0.1);
-        }
-
         /* Staggered List Animation */
         .stagger-item {
             opacity: 0;
@@ -400,10 +365,6 @@
 <body class="font-sans bg-brand-cream text-brand-dark antialiased">
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress" id="scrollProgress"></div>
-
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="customCursor"></div>
-    <div class="custom-cursor-follower" id="cursorFollower"></div>
 
     <!-- Header Container -->
     <div id="header-container"></div>
@@ -940,27 +901,6 @@
         }
 
         window.addEventListener('scroll', updateScrollProgress);
-
-        // Custom Cursor
-        const cursor = document.getElementById('customCursor');
-        const cursorFollower = document.getElementById('cursorFollower');
-
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-
-            setTimeout(() => {
-                cursorFollower.style.left = e.clientX + 'px';
-                cursorFollower.style.top = e.clientY + 'px';
-            }, 100);
-        });
-
-        // Cursor hover effect on interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .card-premium');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
 
         // 3D Card Tilt Effect
         function initCardTilt() {
