@@ -187,18 +187,232 @@
             transform: translateY(-4px) scale(1.02);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
         }
+
+        /* Noise Texture Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            z-index: 9999;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #EF6113, #FF7A3D, #4F46E5);
+            z-index: 10000;
+            transition: width 0.1s ease-out;
+        }
+
+        /* 3D Card Tilt Effect */
+        .card-tilt {
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .card-tilt:hover {
+            transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) scale(1.02);
+        }
+
+        .card-tilt > * {
+            transform: translateZ(20px);
+        }
+
+        /* Advanced Mesh Gradient Background */
+        .mesh-gradient {
+            background:
+                radial-gradient(at 40% 20%, rgba(239, 97, 19, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(79, 70, 229, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, rgba(255, 122, 61, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 100%, rgba(239, 97, 19, 0.15) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(79, 70, 229, 0.15) 0px, transparent 50%);
+            animation: meshMove 20s ease infinite;
+        }
+
+        @keyframes meshMove {
+            0%, 100% {
+                background-position: 0% 0%, 100% 0%, 0% 50%, 100% 100%, 0% 100%;
+            }
+            25% {
+                background-position: 20% 20%, 80% 20%, 20% 50%, 80% 80%, 20% 80%;
+            }
+            50% {
+                background-position: 40% 10%, 60% 30%, 10% 60%, 90% 70%, 10% 90%;
+            }
+            75% {
+                background-position: 30% 30%, 70% 10%, 30% 40%, 70% 90%, 30% 70%;
+            }
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            animation: ripple 0.6s ease-out;
+        }
+
+        @keyframes ripple {
+            to {
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+            }
+        }
+
+        /* Custom Cursor */
+        .custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #EF6113;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            opacity: 0;
+        }
+
+        .custom-cursor-follower {
+            width: 8px;
+            height: 8px;
+            background: #EF6113;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10001;
+            transition: transform 0.15s ease;
+            opacity: 0;
+        }
+
+        body:hover .custom-cursor,
+        body:hover .custom-cursor-follower {
+            opacity: 1;
+        }
+
+        .custom-cursor.hover {
+            transform: scale(1.5);
+            background: rgba(239, 97, 19, 0.1);
+        }
+
+        /* Staggered List Animation */
+        .stagger-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stagger-item.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .stagger-item:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-item:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-item:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-item:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-item:nth-child(5) { transition-delay: 0.5s; }
+        .stagger-item:nth-child(6) { transition-delay: 0.6s; }
+
+        /* Number Counter Animation */
+        .counter {
+            transition: all 0.3s ease;
+        }
+
+        /* Parallax Effect */
+        .parallax {
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        /* Enhanced Glassmorphism */
+        .glass-premium {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+        }
+
+        /* Glow on Hover */
+        .glow-on-hover {
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .glow-on-hover:hover {
+            box-shadow: 0 0 30px rgba(239, 97, 19, 0.4), 0 0 60px rgba(239, 97, 19, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Smooth Appear Animation */
+        @keyframes smoothAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .smooth-appear {
+            animation: smoothAppear 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        /* Text Balance */
+        .text-balance {
+            text-wrap: balance;
+        }
+
+        /* Improved Focus States */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #EF6113;
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
     </style>
     <script src="components.js"></script>
 </head>
 <body class="font-sans bg-brand-cream text-brand-dark antialiased">
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="custom-cursor-follower" id="cursorFollower"></div>
+
     <!-- Header Container -->
     <div id="header-container"></div>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-cream via-white to-brand-cream-dark">
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-brand-cream via-white to-brand-cream-dark mesh-gradient">
         <div class="absolute inset-0 dot-pattern opacity-30"></div>
-        <div class="absolute top-20 right-20 w-96 h-96 bg-brand-orange opacity-10 rounded-full filter blur-3xl float-animate"></div>
-        <div class="absolute bottom-20 left-20 w-80 h-80 bg-brand-accent opacity-10 rounded-full filter blur-3xl float-animate" style="animation-delay: 1s;"></div>
+        <div class="absolute top-20 right-20 w-96 h-96 bg-brand-orange opacity-10 rounded-full filter blur-3xl float-animate parallax" data-speed="0.3"></div>
+        <div class="absolute bottom-20 left-20 w-80 h-80 bg-brand-accent opacity-10 rounded-full filter blur-3xl float-animate parallax" style="animation-delay: 1s;" data-speed="0.5"></div>
 
         <div class="max-w-7xl mx-auto px-6 py-32 relative z-10">
             <div class="space-y-12">
@@ -256,7 +470,7 @@
             </h2>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24">
-                <div class="reveal-scale card-premium bg-gradient-to-br from-white to-red-50/30 rounded-3xl p-10 md:p-12 border border-red-100/50">
+                <div class="reveal-scale card-premium card-tilt bg-gradient-to-br from-white to-red-50/30 rounded-3xl p-10 md:p-12 border border-red-100/50 glow-on-hover">
                     <div class="flex items-start gap-4 mb-8">
                         <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden shadow-lg flex-shrink-0 image-hover">
                             <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=200&h=200&fit=crop" alt="Fragmented healthcare" class="w-full h-full object-cover"/>
@@ -272,7 +486,7 @@
                     </div>
                 </div>
 
-                <div class="reveal-scale card-premium bg-gradient-to-br from-white to-brand-cream rounded-3xl p-10 md:p-12 border border-brand-orange/20 shadow-xl">
+                <div class="reveal-scale card-premium card-tilt bg-gradient-to-br from-white to-brand-cream rounded-3xl p-10 md:p-12 border border-brand-orange/20 shadow-xl glow-on-hover">
                     <div class="flex items-start gap-4 mb-8">
                         <div class="w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden shadow-lg flex-shrink-0 image-hover">
                             <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=200&h=200&fit=crop" alt="Continuous healthcare" class="w-full h-full object-cover"/>
@@ -301,15 +515,15 @@
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
-                <div class="reveal-scale glass rounded-3xl p-10 md:p-12 shadow-2xl hover:shadow-3xl transition-shadow">
-                    <div class="text-7xl md:text-8xl font-bold mb-4 text-gradient">97%</div>
-                    <div class="text-2xl md:text-3xl font-semibold mb-3 text-brand-dark">less time on intake</div>
+                <div class="reveal-scale glass-premium rounded-3xl p-10 md:p-12 shadow-2xl glow-on-hover card-tilt">
+                    <div class="text-7xl md:text-8xl font-bold mb-4 text-gradient counter" data-target="97">0%</div>
+                    <div class="text-2xl md:text-3xl font-semibold mb-3 text-brand-dark text-balance">less time on intake</div>
                     <div class="text-lg md:text-xl text-brand-muted">240 hours saved per doctor per year</div>
                 </div>
 
-                <div class="reveal-scale glass rounded-3xl p-10 md:p-12 shadow-2xl hover:shadow-3xl transition-shadow" style="transition-delay: 0.1s;">
-                    <div class="text-7xl md:text-8xl font-bold mb-4 text-gradient">30%</div>
-                    <div class="text-2xl md:text-3xl font-semibold mb-3 text-brand-dark">more patient capacity</div>
+                <div class="reveal-scale glass-premium rounded-3xl p-10 md:p-12 shadow-2xl glow-on-hover card-tilt" style="transition-delay: 0.1s;">
+                    <div class="text-7xl md:text-8xl font-bold mb-4 text-gradient counter" data-target="30">0%</div>
+                    <div class="text-2xl md:text-3xl font-semibold mb-3 text-brand-dark text-balance">more patient capacity</div>
                     <div class="text-lg md:text-xl text-brand-muted">$50K+ additional annual revenue</div>
                 </div>
             </div>
@@ -343,7 +557,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                    <div class="reveal-scale card-premium bg-white rounded-3xl p-8 md:p-10 shadow-lg">
+                    <div class="reveal-scale card-premium card-tilt bg-white rounded-3xl p-8 md:p-10 shadow-lg glow-on-hover">
                         <div class="w-20 h-20 rounded-2xl overflow-hidden shadow-md mb-6 image-hover">
                             <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=200&h=200&fit=crop" alt="AI Medical Scribe" class="w-full h-full object-cover"/>
                         </div>
@@ -351,7 +565,7 @@
                         <p class="text-lg md:text-xl text-brand-muted leading-relaxed">Automated documentation in 30 seconds, any language</p>
                     </div>
 
-                    <div class="reveal-scale card-premium bg-white rounded-3xl p-8 md:p-10 shadow-lg" style="transition-delay: 0.1s;">
+                    <div class="reveal-scale card-premium card-tilt bg-white rounded-3xl p-8 md:p-10 shadow-lg glow-on-hover" style="transition-delay: 0.1s;">
                         <div class="w-20 h-20 rounded-2xl overflow-hidden shadow-md mb-6 image-hover">
                             <img src="https://images.unsplash.com/photo-1576671081837-49000212a370?w=200&h=200&fit=crop" alt="AI Clinical Consultant" class="w-full h-full object-cover"/>
                         </div>
@@ -359,7 +573,7 @@
                         <p class="text-lg md:text-xl text-brand-muted leading-relaxed">Diagnostic suggestions, risk alerts, treatment options</p>
                     </div>
 
-                    <div class="reveal-scale card-premium bg-white rounded-3xl p-8 md:p-10 shadow-lg" style="transition-delay: 0.2s;">
+                    <div class="reveal-scale card-premium card-tilt bg-white rounded-3xl p-8 md:p-10 shadow-lg glow-on-hover" style="transition-delay: 0.2s;">
                         <div class="w-20 h-20 rounded-2xl overflow-hidden shadow-md mb-6 image-hover">
                             <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=200&h=200&fit=crop" alt="Patient Data Access" class="w-full h-full object-cover"/>
                         </div>
@@ -424,10 +638,10 @@
                     </div>
                     <p class="text-xl md:text-2xl mb-8 text-brand-muted font-light">No typing. No clicking through menus. Just speak.</p>
                     <ul class="space-y-4 text-lg md:text-xl text-brand-muted">
-                        <li class="italic pl-4 border-l-4 border-brand-orange">"Show me Sarah's blood pressure trends for the last 3 months"</li>
-                        <li class="italic pl-4 border-l-4 border-brand-orange">"Update John's medication dosage to 50mg twice daily"</li>
-                        <li class="italic pl-4 border-l-4 border-brand-orange">"Generate a compliance report for diabetic patients this quarter"</li>
-                        <li class="italic pl-4 border-l-4 border-brand-orange">"What are the risk factors for this patient?"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-orange">"Show me Sarah's blood pressure trends for the last 3 months"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-orange">"Update John's medication dosage to 50mg twice daily"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-orange">"Generate a compliance report for diabetic patients this quarter"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-orange">"What are the risk factors for this patient?"</li>
                     </ul>
                 </div>
 
@@ -440,10 +654,10 @@
                     </div>
                     <p class="text-xl md:text-2xl mb-8 text-brand-muted font-light">While cooking, driving, or exercising. Hands-free healthcare.</p>
                     <ul class="space-y-4 text-lg md:text-xl text-brand-muted">
-                        <li class="italic pl-4 border-l-4 border-brand-accent">"What's my heart rate today compared to last week?"</li>
-                        <li class="italic pl-4 border-l-4 border-brand-accent">"Log my breakfast — scrambled eggs and avocado"</li>
-                        <li class="italic pl-4 border-l-4 border-brand-accent">"When should I take my blood pressure medication?"</li>
-                        <li class="italic pl-4 border-l-4 border-brand-accent">"Am I on track with my fitness goals?"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-accent">"What's my heart rate today compared to last week?"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-accent">"Log my breakfast — scrambled eggs and avocado"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-accent">"When should I take my blood pressure medication?"</li>
+                        <li class="stagger-item italic pl-4 border-l-4 border-brand-accent">"Am I on track with my fitness goals?"</li>
                     </ul>
                 </div>
             </div>
@@ -587,33 +801,33 @@
                 <h3 class="text-3xl md:text-4xl font-bold mb-12 text-brand-dark">Key outcomes</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="card-premium bg-white rounded-2xl p-8 shadow-lg">
-                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient">97%</div>
+                    <div class="card-premium card-tilt bg-white rounded-2xl p-8 shadow-lg glow-on-hover">
+                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient counter" data-target="97">0%</div>
                         <div class="text-xl font-semibold mb-2 text-brand-dark">Less documentation time</div>
                         <p class="text-brand-muted">From 2 hours/day to 5 minutes</p>
                     </div>
-                    <div class="card-premium bg-white rounded-2xl p-8 shadow-lg">
-                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient">30%</div>
+                    <div class="card-premium card-tilt bg-white rounded-2xl p-8 shadow-lg glow-on-hover">
+                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient counter" data-target="30">0%</div>
                         <div class="text-xl font-semibold mb-2 text-brand-dark">More patient capacity</div>
                         <p class="text-brand-muted">Same hours, no overtime</p>
                     </div>
-                    <div class="card-premium bg-white rounded-2xl p-8 shadow-lg">
-                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient">27.5%</div>
+                    <div class="card-premium card-tilt bg-white rounded-2xl p-8 shadow-lg glow-on-hover">
+                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient counter" data-target="27.5">0%</div>
                         <div class="text-xl font-semibold mb-2 text-brand-dark">Clinic revenue increase</div>
                         <p class="text-brand-muted">Measured over 6 months</p>
                     </div>
-                    <div class="card-premium bg-white rounded-2xl p-8 shadow-lg">
-                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient">75%</div>
+                    <div class="card-premium card-tilt bg-white rounded-2xl p-8 shadow-lg glow-on-hover">
+                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient counter" data-target="75">0%</div>
                         <div class="text-xl font-semibold mb-2 text-brand-dark">Patient adoption</div>
                         <p class="text-brand-muted">Active app usage</p>
                     </div>
-                    <div class="card-premium bg-white rounded-2xl p-8 shadow-lg">
-                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient">0</div>
+                    <div class="card-premium card-tilt bg-white rounded-2xl p-8 shadow-lg glow-on-hover">
+                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient counter" data-target="0">0</div>
                         <div class="text-xl font-semibold mb-2 text-brand-dark">Staff turnover</div>
                         <p class="text-brand-muted">Same team, better outcomes</p>
                     </div>
-                    <div class="card-premium bg-white rounded-2xl p-8 shadow-lg">
-                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient">4.8/5</div>
+                    <div class="card-premium card-tilt bg-white rounded-2xl p-8 shadow-lg glow-on-hover">
+                        <div class="text-5xl md:text-6xl font-bold mb-3 text-gradient counter" data-target="4.8">0/5</div>
                         <div class="text-xl font-semibold mb-2 text-brand-dark">Patient satisfaction</div>
                         <p class="text-brand-muted">847 surveys</p>
                     </div>
@@ -713,6 +927,178 @@
                         block: 'start'
                     });
                 }
+            });
+        });
+
+        // Scroll Progress Indicator
+        function updateScrollProgress() {
+            const scrollProgress = document.getElementById('scrollProgress');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            scrollProgress.style.width = progress + '%';
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Custom Cursor
+        const cursor = document.getElementById('customCursor');
+        const cursorFollower = document.getElementById('cursorFollower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Cursor hover effect on interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .card-premium');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // 3D Card Tilt Effect
+        function initCardTilt() {
+            const cards = document.querySelectorAll('.card-tilt');
+
+            cards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+
+                    card.style.setProperty('--rotate-x', `${rotateX}deg`);
+                    card.style.setProperty('--rotate-y', `${rotateY}deg`);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.setProperty('--rotate-x', '0deg');
+                    card.style.setProperty('--rotate-y', '0deg');
+                });
+            });
+        }
+
+        // Animated Number Counter
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            const originalText = element.textContent;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+
+                // Format based on original text content
+                if (originalText.includes('$')) {
+                    element.textContent = '$' + Math.round(current).toLocaleString();
+                } else if (originalText.includes('%')) {
+                    if (target < 10) {
+                        element.textContent = current.toFixed(1) + '%';
+                    } else {
+                        element.textContent = Math.round(current) + '%';
+                    }
+                } else if (originalText.includes('/')) {
+                    element.textContent = current.toFixed(1) + '/5';
+                } else {
+                    element.textContent = Math.round(current);
+                }
+            }, 16);
+        }
+
+        // Initialize counters when they come into view
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+                    entry.target.classList.add('counted');
+                    const target = parseFloat(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                }
+            });
+        }, observerOptions);
+
+        // Ripple Effect on Buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const ripple = document.createElement('span');
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple-effect');
+
+            button.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
+        }
+
+        // Staggered List Animation
+        function initStaggerAnimation() {
+            const staggerItems = document.querySelectorAll('.stagger-item');
+
+            const staggerObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            staggerItems.forEach(item => staggerObserver.observe(item));
+        }
+
+        // Parallax Effect
+        function initParallax() {
+            const parallaxElements = document.querySelectorAll('.parallax');
+
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+
+                parallaxElements.forEach(el => {
+                    const speed = el.getAttribute('data-speed') || 0.5;
+                    const yPos = -(scrolled * speed);
+                    el.style.transform = `translateY(${yPos}px)`;
+                });
+            });
+        }
+
+        // Initialize all effects on DOMContentLoaded
+        window.addEventListener('DOMContentLoaded', () => {
+            initCardTilt();
+            initStaggerAnimation();
+            initParallax();
+
+            // Add ripple effect to buttons
+            document.querySelectorAll('.btn-magnetic, button').forEach(button => {
+                button.addEventListener('click', createRipple);
+            });
+
+            // Initialize number counters
+            document.querySelectorAll('.counter').forEach(counter => {
+                counterObserver.observe(counter);
             });
         });
     </script>
